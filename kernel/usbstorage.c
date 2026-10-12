@@ -430,6 +430,7 @@ static s32 __cycle(important_storage_data *dev, u8 lun, u8 *buffer, u32 len, u8 
 			break;
 
 		u32 start = read32(HW_TIMER);
+		u32 start_secs = GetCurrentTime();
 		u32 first_seq = __inflight_seq;
 		__inflight_command(cb, cbLen, len);
 		stage = 1;
@@ -482,6 +483,9 @@ static s32 __cycle(important_storage_data *dev, u8 lun, u8 *buffer, u32 len, u8 
 
 		usb_history_entry *h = __history_add(cb[0]);
 		u32 ms = (read32(HW_TIMER) - start) / TICKS_PER_MS;
+		u32 secs = GetCurrentTime() - start_secs;
+		if (secs >= 60) // HW_TIMER wraps every 37.7 minutes
+			ms = secs * 1000;
 		h->ms = ms > 0xFFFF ? 0xFFFF : ms;
 		h->stage = retval < 0 ? stage : 0;
 		h->err = retval < 0 ? retval : 0;
