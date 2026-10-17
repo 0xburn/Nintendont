@@ -16,7 +16,7 @@ _Project Slippi Nintendont only officially supports the NTSC 1.02 version of Mel
 	- Tournament Mods (Stealth Mods, D-Pad for rumble, stage striking)
 	- Quality-of-life Mods (Tournament Mods, skip results, salty runback)
 	- NTSC-to-PAL conversion
-	- Lag Reduction (PD, PD + 1/4F, or PD + 1/2F)
+	- Lag Reduction (PD, or PD/VB adjustable from 0.05 to 0.95 frames)
 	- Ruleset Mods (Vanilla or Frozen Stadium)
 
 ## Requirements/Instructions

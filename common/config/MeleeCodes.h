@@ -4,7 +4,7 @@
 #define MELEE_CODES_CF_OPTION_COUNT 3
 #define MELEE_CODES_VERSION_OPTION_COUNT 2
 #define MELEE_CODES_MODS_OPTION_COUNT 4
-#define MELEE_CODES_LAG_REDUCTION_OPTION_COUNT 4
+#define MELEE_CODES_LAG_REDUCTION_OPTION_COUNT 3
 #define MELEE_CODES_STAGES_OPTION_COUNT 3
 #define MELEE_CODES_SCREEN_OPTION_COUNT 3
 #define MELEE_CODES_GAMEPLAY_OPTION_COUNT 4
@@ -29,6 +29,18 @@
 
 #define MELEE_CODES_WIDE_SHUTTERS_VALUE 2
 #define MELEE_CODES_WIDE_VALUE 3
+
+// Lag reduction values. The visual buffer code is adjustable from
+// MELEE_CODES_LAG_VB_MIN to MELEE_CODES_LAG_VB_MAX hundredths of a frame and
+// saved as MELEE_CODES_LAG_VB_VALUE_BASE + hundredths, except 0.50 frames,
+// which keeps value 3 so configs stay compatible with builds that only had
+// PDF + 1/2F.
+#define MELEE_CODES_LAG_OFF_VALUE 1
+#define MELEE_CODES_LAG_PD_VALUE 2
+#define MELEE_CODES_LAG_VB_VALUE 3
+#define MELEE_CODES_LAG_VB_VALUE_BASE 1000
+#define MELEE_CODES_LAG_VB_MIN 5
+#define MELEE_CODES_LAG_VB_MAX 95
 
 typedef struct MeleeCodeOption
 {
@@ -55,5 +67,12 @@ typedef struct MeleeCodeConfig
 } MeleeCodeConfig;
 
 const MeleeCodeConfig *GetMeleeCodeConfig();
+const MeleeCodeOption *GetMeleeCodeOption(const MeleeCodeLineItem *item, unsigned int value);
+
+int GetLagReductionHundredths(unsigned int value);
+unsigned int GetLagReductionValue(int hundredths);
+unsigned int StepLagReductionValue(unsigned int value, int direction);
+unsigned int NextLagReductionPreset(unsigned int value);
+unsigned int GetLagReductionPollLines(unsigned int value);
 
 #endif // _MELEE_CODES_H
