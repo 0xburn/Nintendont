@@ -10,6 +10,7 @@
 #include "../../kernel/gecko/g_mods_friendlies.h" // Mods: Friendlies
 
 #include "../../kernel/gecko/g_lag_pd.h" // Lag Reduction: PD
+#include "../../kernel/gecko/g_lag_pdquartervb.h" // Lag Reduction: PD+1/4VB
 #include "../../kernel/gecko/g_lag_pdhalfvb.h" // Lag Reduction: PD+VB
 
 #include "../../kernel/gecko/g_stages_stadium.h" // Stages: Frozen Pokemon
@@ -209,6 +210,15 @@ const MeleeCodeOption lagReductionOptionPd = {
 	g_lag_pd,
 };
 
+// Value 4 is listed before value 3 so the options read in order of
+// reduction. Values are what get saved, so existing ones must not change.
+const MeleeCodeOption lagReductionOptionPdQuarterVb = {
+	4,
+	"PDF + 1/4F",
+	g_lag_pdquartervb_size,
+	g_lag_pdquartervb,
+};
+
 const MeleeCodeOption lagReductionOptionPdVb = {
 	3,
 	"PDF + 1/2F",
@@ -219,6 +229,7 @@ const MeleeCodeOption lagReductionOptionPdVb = {
 const MeleeCodeOption *lagReductionOptions[MELEE_CODES_LAG_REDUCTION_OPTION_COUNT] = {
 	&lagReductionOptionOff,
 	&lagReductionOptionPd,
+	&lagReductionOptionPdQuarterVb,
 	&lagReductionOptionPdVb,
 };
 
@@ -229,6 +240,12 @@ static const char *lagReductionDescription[] = {
 	"    Polling drift fix. Ensures",
 	"    inputs are polled consistently.",
 	"    Average 4.17ms reduction",
+	"",
+	"  [PDF + 1/4F]",
+	"    Removes 1/4 frame of lag.",
+	"    Average 8.34ms reduction",
+	"    For HD CRTs and monitors,",
+	"    480p is forcibly enabled.",
 	"",
 	"  [PDF + 1/2F]",
 	"    Removes 1/2 frame of lag.",
